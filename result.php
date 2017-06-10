@@ -1,5 +1,10 @@
 <?php
 
+require('resource/connect.php');
+
+$message = '';
+$matches = [];
+
 // check if value is set
 if (isset($_GET['walkFar'])) {
   // 0 - Sunday, 6 - Saturday
@@ -23,18 +28,54 @@ if (isset($_GET['walkFar'])) {
   }
 
   // check selection for walkFar
-  if ($_GET['walkFar'] === yes) {
+  if ($_GET['walkFar'] === 'yes') {
     $walkfar = true;
   }
 
   // check if it's the weekend
   if ($dayofweek == 0 || $dayofweek == 6) {
-    $weekend = true;
+    //$weekend = true;
   }
 
-  
+  // pick best location
+  if ($weekend) {
+    // tell user it's the weekend
+    $message = "It's the weekend, you shouldn't be at work!";
+  } else {
+    if ($outside) {
+      if ($walkfar) { // outside and far
+        $query = "SELECT * FROM options WHERE outside = 1";
+        $statement = $db->prepare($query);
+        $statement->execute();
+        $matches = $statement->fetchAll();
+        
+      } else { // outside, not far
+        $query = "SELECT * FROM options WHERE outside = 1 AND far = 0";
+        $statement = $db->prepare($query);
+        $statement->execute();
+        $matches = $statement->fetchAll();
+      }
+    } else {
+      if ($walkfar) { // not outside, far
+        $query = "SELECT * FROM options WHERE outside = 0";
+        $statement = $db->prepare($query);
+        $statement->execute();
+        $matches = $statement->fetchAll();
+      } else { // not outside or far
+        $query = "SELECT * FROM options WHERE outside = 0 AND far = 0";
+        $statement = $db->prepare($query);
+        $statement->execute();
+        $matches = $statement->fetchAll();
+      }
+    }
 
-}else{ // if not redirect to homepage
+    // pick a random selection from the matching locations
+    $pick = $matches[array_rand($matches)];
+    $message = "How about " . $pick['name'] . " today?";
+  }
+
+
+} else { // if not redirect to homepage
     header("Location: index.php");
 }
 
@@ -44,8 +85,6 @@ if (isset($_GET['walkFar'])) {
 <html lang="en">
   <?php include 'header.php' ?>
   <body>
-    <p><?= $weatherToday ?></p>
-    <p><?= $dayofweek ?></p>
-    <p><?= $walkfar ?></p>
+    <p><?= $message ?></p>
   </body>
 </html>
