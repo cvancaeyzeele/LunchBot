@@ -1,4 +1,25 @@
 div.container {
-  display: inline-block;
+  width: 50%;
+  height: 300px;
   margin: 30px auto;
+  padding: 20px;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+form {
+  margin-top: 10px;
+}
+
+.form-check-label {
+  font-size: 18px;
+  display: block;
+  margin: 0 10px;
+}
+
+.btn {
+  margin: 10px 0;
+  font-size: 24px;
 }

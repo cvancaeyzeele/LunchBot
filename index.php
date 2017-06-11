@@ -8,19 +8,15 @@
         <div class="form-group">
           <legend>Do you want to walk far?</legend>
           <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="walkFar" id="farWalk" value="yes" checked>
-              Yes
-            </label>
+            <input type="radio" class="form-check-input" name="walkFar" id="farWalk" value="yes" checked>
+            <label class="form-check-label"> Yes</label>
           </div>
           <div class="form-check">
-            <label class="form-check-label">
             <input type="radio" class="form-check-input" name="walkFar" id="shortWalk" value="no">
-            No
-            </label>
+            <label class="form-check-label"> No</label>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit <i class="material-icons">restaurant</i></button>
       </form>
     </div>
   </body>

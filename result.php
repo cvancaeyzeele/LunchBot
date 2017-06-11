@@ -85,6 +85,9 @@ if (isset($_GET['walkFar'])) {
 <html lang="en">
   <?php include 'header.php' ?>
   <body>
-    <p><?= $message ?></p>
+    <div class="container">
+      <h2><?= $message ?></h2>
+      <a href="index.php" class="btn btn-info"><i class="material-icons">keyboard_arrow_left</i> Go Back</a>      
+    </div>
   </body>
 </html>
